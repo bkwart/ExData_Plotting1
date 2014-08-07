@@ -1,20 +1,20 @@
 csv_file <- "household_power_consumption.txt"
 df <- read.csv(csv_file, header = TRUE, sep = ";", colClasses = "character")
 
-vDate <- as.Date(df$Date, format = "%d/%m/%Y")
-filter <- vDate == '2007-02-01' | vDate == '2007-02-02'
+date_as_Date <- as.Date(df$Date, format = "%d/%m/%Y")
+df <- df[date_as_Date == "2007-02-01" | date_as_Date == "2007-02-02",]
 
-active_power <- as.numeric(df$Global_active_power[filter])
+active_power <- as.numeric(df$Global_active_power)
 
-subMetering1 <- as.numeric(df$Sub_metering_1[filter])
-subMetering2 <- as.numeric(df$Sub_metering_2[filter])
-subMetering3 <- as.numeric(df$Sub_metering_3[filter])
+subMetering1 <- as.numeric(df$Sub_metering_1)
+subMetering2 <- as.numeric(df$Sub_metering_2)
+subMetering3 <- as.numeric(df$Sub_metering_3)
 
-voltage <- as.numeric(df$Voltage[filter])
+voltage <- as.numeric(df$Voltage)
 
-reactive_power <- as.numeric(df$Global_reactive_power[filter])
+reactive_power <- as.numeric(df$Global_reactive_power)
 
-vDateTimeString <- paste(df$Date[filter], df$Time[filter])
+vDateTimeString <- paste(df$Date, df$Time)
 vDateTime <- as.POSIXct(vDateTimeString, format = "%d/%m/%Y %H:%M:%S")
 
 png(file = "plot4.png")
